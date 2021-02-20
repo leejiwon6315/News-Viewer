@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Article } from "../Type";
 import axios from "axios";
 import styled from "styled-components";
 import NewsItem from "./NewsItem";
@@ -17,18 +18,23 @@ const NewsListBlock = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  category: string;
+}
 
-const NewsList: React.FC<Props> = () => {
-  const [articles, setArticles] = useState<any>(null);
+type Articles = Array<Article> | null;
+
+const NewsList: React.FC<Props> = ({ category }) => {
+  const [articles, setArticles] = useState<Articles>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
       try {
+        const query = category === "all" ? "" : `&category=${category}`;
         const res = await axios.get(
-          "http://newsapi.org/v2/top-headlines?country=kr&apiKey=a47e22c8cee946bcb196a32f3f795e5e"
+          `http://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=a47e22c8cee946bcb196a32f3f795e5e`
         );
         setArticles(res.data.articles);
       } catch (e) {
@@ -37,7 +43,7 @@ const NewsList: React.FC<Props> = () => {
       setLoading(false);
     };
     fetch();
-  }, []);
+  }, [category]);
 
   if (loading) {
     return <NewsListBlock>Loading...</NewsListBlock>;

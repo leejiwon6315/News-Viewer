@@ -1,3 +1,5 @@
+import React from "react";
+import { Article } from "../Type";
 import styled from "styled-components";
 
 const NewsItemBlock = styled.div`
@@ -32,15 +34,7 @@ const NewsItemBlock = styled.div`
   }
 `;
 
-interface Props {
-  article: {
-    title: string;
-    description: string;
-    url: any;
-    urlToImage: any;
-  };
-}
-const NewsItem: React.FC<Props> = ({ article }) => {
+const NewsItem: React.FC<Article> = ({ article }) => {
   const { title, description, url, urlToImage } = article;
   return (
     <NewsItemBlock>
