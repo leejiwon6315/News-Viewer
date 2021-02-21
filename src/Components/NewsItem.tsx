@@ -16,6 +16,8 @@ const NewsItemBlock = styled.div`
   }
 
   .contents {
+    padding-left: 20px;
+
     h2 {
       margin: 0;
       a {
@@ -51,8 +53,9 @@ const NewsItem: React.FC<Article> = ({ article }) => {
             {title}
           </a>
         </h2>
+
+        <p>{description}</p>
       </div>
-      <p>{description}</p>
     </NewsItemBlock>
   );
 };

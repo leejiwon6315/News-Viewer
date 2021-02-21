@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const categories = [
   { name: "all", text: "전체보기" },
@@ -11,15 +12,18 @@ const categories = [
   { name: "technology", text: "기술" },
 ];
 
-interface Props {
-  selectCategory: any;
-}
+interface Props {}
 
-const Categories: React.FC<Props> = ({ selectCategory }) => {
+const Categories: React.FC<Props> = () => {
   return (
     <CategoriesBlock>
       {categories.map((elem) => (
-        <Category key={elem.name} onClick={() => selectCategory(elem.name)}>
+        <Category
+          key={elem.name}
+          activeClassName="active"
+          exact={elem.name === "all"}
+          to={elem.name === "all" ? "/" : `/${elem.name}`}
+        >
           {elem.text}
         </Category>
       ))}
@@ -39,7 +43,7 @@ const CategoriesBlock = styled.div`
   }
 `;
 
-const Category = styled.div`
+const Category = styled(NavLink)`
   font-size: 1.125rem;
   cursor: pointer;
   white-space: pre;
@@ -49,6 +53,15 @@ const Category = styled.div`
 
   &:hover {
     color: #495057;
+  }
+
+  &.active {
+    font-weight: 600;
+    border-bottom: 2px solid #22b8cf;
+    color: #22bcf;
+    &:hover {
+      color: #3bc9db;
+    }
   }
 
   & + & {

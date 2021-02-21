@@ -1,19 +1,9 @@
-import React, { useCallback, useState } from "react";
-import NewsList from "./Components/NewsList";
-import Categories from "./Components/Categories";
+import React from "react";
+import { Route } from "react-router-dom";
+import NewsPage from "./NewsPage";
 
 const App: React.FC = () => {
-  const [category, setCategory] = useState<string>("all");
-  const selectCategory = useCallback(
-    (category: string) => setCategory(category),
-    []
-  );
-  return (
-    <>
-      <Categories selectCategory={selectCategory} />
-      <NewsList category={category} />
-    </>
-  );
+  return <Route path="/:category?" component={NewsPage} />;
 };
 
 export default App;
